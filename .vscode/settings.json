@@ -1,0 +1,8 @@
+{
+    "vim.enableNeovim": false,
+
+    "editor.renderLineHighlight": "none",
+    "editor.cursorBlinking": "solid",
+    "vim.mouseSelectionGoesIntoVisualMode": false,
+    "vim.statusBarColorControl": false
+}
