@@ -78,7 +78,7 @@ class PID_controller:
     def integral(self):
         try:
             u_i = self.Kp * self.Ts / self.Ti * self.error + self.u_i
-            u_i = round(u_i,2)
+            self.u_i = round(u_i,2)
 
             # anti windup:
             if u_i > 100.0:
@@ -95,8 +95,8 @@ class PID_controller:
         try:
             beta = self.Td / (self.Td + self.Ts * self.Nd)
             u_d = beta*self.u_d - (self.Kp * self.Td / self.Ts) * (1-beta) * (self.value-self.value_prev)
-            self.u_d = u_d
-            u_d = round(u_d,2)
+            u_d = u_d
+            self.u_d = round(u_d,2)
         except ZeroDivisionError:
             self.u_d = 0.00
             
@@ -119,10 +119,10 @@ class PID_controller:
         self.u_tot = round(self.u_tot, 2)
 
         # anti windup:
-        # if self.u_tot > 100.0:
-        #     self.u_tot = 100.0
-        # elif self.u_tot < 0.0:
-        #     self.u_tot = 0.0
+        if self.u_tot > 100.0:
+            self.u_tot = 100.0
+        elif self.u_tot < 0.0:
+            self.u_tot = 0.0
 
         results = [ctime(), self.value, self.setpoint, self.u_tot, self.u_p, self.u_i, self.u_d, self.Kp, self.Ti, self.Td, self.Nd]
 
